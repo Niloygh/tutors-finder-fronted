@@ -34,8 +34,8 @@ const Banner = () => {
                             Personalized learning made easy with expert tutors anytime, anywhere.
                         </p>
 
-                        <Link href={'/tutor'} >
-                            <Button color="primary" className={'bg-blue-600'} >Get Started </Button>
+                        <Link href={'/tutors'} >
+                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
                         </Link>
                     </div>
 
@@ -56,8 +56,8 @@ const Banner = () => {
                             Discover expert tutors, schedule sessions easily, and achieve your learning goals faster.
                         </p>
 
-                        <Link href={'/tutor'} >
-                            <Button color="primary" className={'bg-blue-600'} >Get Started </Button>
+                        <Link href={'/tutors'} >
+                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
                         </Link>
                     </div>
 
@@ -78,8 +78,8 @@ const Banner = () => {
                            Personalized tutoring sessions designed to help students succeed in every subject.
                         </p>
 
-                        <Link href={'/tutor'} >
-                            <Button color="primary" className={'bg-blue-600'} >Get Started </Button>
+                        <Link href={'/tutors'} >
+                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
                         </Link>
                     </div>
 
