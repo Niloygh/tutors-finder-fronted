@@ -28,7 +28,7 @@ export function Navbar() {
               <div className="p-2 bg-blue-600 rounded-xl group-hover:rotate-12 transition-transform">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
-              <span className="font-extrabold text-2xl tracking-tight text-slate-900">
+              <span className="font-extrabold text-2xl bg-linear-to-r from-blue-600 to-[#2C5EAD] bg-clip-text text-transparent">
                 Tutor Finder
               </span>
             </Link>
