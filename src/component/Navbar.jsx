@@ -40,7 +40,7 @@ export function Navbar() {
             <Link href="/tutors" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Tutors</Link>
 
             <Link href="/add-tutor" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Add Tutor</Link>
-            
+
             <Link href="/my-tutors" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Tutors</Link>
 
             <Link href="/my-booked-sessions" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Booked Sessions</Link>
@@ -52,8 +52,8 @@ export function Navbar() {
               <Link href="/login" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Login</Link>
               <Link href="/register">
 
-                <Button color="primary" className="font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
-                  Join Free
+                <Button color="primary" className="bg-blue-600 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
+                  Register
                 </Button>
               </Link>
             </>
@@ -77,11 +77,8 @@ export function Navbar() {
                   <p className="font-bold text-sm">Welcome back!</p>
                   <p className="text-xs truncate text-slate-500">sakib@gmail.com</p>
                 </div>
-                <Link href="/dashboard" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
-                  <LayoutDashboard className="w-4 h-4" /> Dashboard
-                </Link>
-                <Link href="/settings" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
-                  <User className="w-4 h-4" /> Settings
+                <Link href="/profile" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
+                  <LayoutDashboard className="w-4 h-4" /> Profile
                 </Link>
                 <button className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
                   <LogOut className="w-4 h-4" /> Log Out
@@ -107,7 +104,7 @@ export function Navbar() {
           <Link href="/tutors" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Tutors</Link>
 
           <Link href="/add-tutor" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Add Tutor</Link>
-          
+
           <Link href="/my-tutors" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">My Tutors</Link>
 
           <Link href="/my-booked-sessions" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">My Booked Sessions</Link>
@@ -118,12 +115,14 @@ export function Navbar() {
                 <Button href="/login" variant="bordered" className="rounded-xl">Login</Button>
               </Link>
               <Link href="/register">
-                <Button href="/register" color="primary" className="rounded-xl">Join Free</Button>
+                <Button href="/register" color="primary" className="rounded-xl">Register</Button>
               </Link>
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="px-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">Account</p>
+              <Link href={'profile'} >
+                <p className="px-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">Profile</p>
+              </Link>
               <button className="block w-full text-left px-4 py-3 text-base font-medium text-red-500 hover:bg-red-50 rounded-xl">Log Out</button>
             </div>
 
