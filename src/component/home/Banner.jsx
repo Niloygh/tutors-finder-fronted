@@ -35,8 +35,7 @@ const Banner = () => {
                         </p>
 
                         <Link href={'/tutors'} >
-                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
-                        </Link>
+                            <Button color="primary" className={'bg-cyan-500 px-8 py-4'} >All Tutors</Button>                        </Link>
                     </div>
 
                 </div></SwiperSlide>
@@ -57,7 +56,7 @@ const Banner = () => {
                         </p>
 
                         <Link href={'/tutors'} >
-                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
+                            <Button color="primary" className={'bg-cyan-500 px-8 py-4 text-white shadow-lg'} >All Tutors</Button>
                         </Link>
                     </div>
 
@@ -75,16 +74,16 @@ const Banner = () => {
                         </h1>
 
                         <p className='text-lg'>
-                           Personalized tutoring sessions designed to help students succeed in every subject.
+                            Personalized tutoring sessions designed to help students succeed in every subject.
                         </p>
 
                         <Link href={'/tutors'} >
-                            <Button color="primary" className={'bg-blue-600'} >All Tutors</Button>
+                            <Button color="primary" className={'bg-cyan-500 px-8 py-4 text-white shadow-lg'} >All Tutors</Button>
                         </Link>
                     </div>
 
                 </div></SwiperSlide>
-               
+
             </Swiper>
 
         </div>

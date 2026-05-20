@@ -41,7 +41,7 @@ export function AvailableTutorCard() {
       </Card.Header>
 
       <Link href="/" >
-        <Button className={'bg-blue-600 w-full'} >Book Session</Button>
+        <Button className={'bg-cyan-500 w-full'} >Book Session</Button>
       </Link>
 
     </Card>

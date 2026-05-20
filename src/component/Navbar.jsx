@@ -52,7 +52,7 @@ export function Navbar() {
               <Link href="/login" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Login</Link>
               <Link href="/register">
 
-                <Button color="primary" className="bg-blue-600 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
+                <Button color="primary" className="bg-cyan-500 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
                   Register
                 </Button>
               </Link>
