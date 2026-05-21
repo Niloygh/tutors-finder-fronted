@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Tutor = () => {
+const TutorsPage = () => {
     return (
         <div>
-            this is tutor
+            tutors page
         </div>
     );
 };
 
-export default Tutor;
+export default TutorsPage;

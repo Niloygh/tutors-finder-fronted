@@ -3,12 +3,17 @@ import { BookOpen, CalendarDays, Clock3, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function AvailableTutorCard() {
+export function AvailableTutorCard({ tutor }) {
   return (
     <Card className="max-w-100 hover:scale-103 transition-all duration-300 ease-in-out">
-        <div className="">
-          <Image src={'https://images.unsplash.com/photo-1511629091441-ee46146481b6'} alt="cardImage" width={400} height={400} className="w-full rounded-xl my-3" />
-        </div>
+      <div className="relative w-full h-62.5 overflow-hidden rounded-xl my-3">
+        <Image
+          src={tutor.image}
+          alt="cardImage"
+          fill
+          className="object-cover"
+        />
+      </div>
 
       <Card.Header className="space-y-1">
 
@@ -40,7 +45,7 @@ export function AvailableTutorCard() {
 
       </Card.Header>
 
-      <Link href="/" >
+      <Link href={`/tutors/${tutor._id}`} >
         <Button className={'bg-cyan-500 w-full'} >Book Session</Button>
       </Link>
 
