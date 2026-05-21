@@ -1,15 +1,15 @@
-import TablePage from '@/component/MyTutors';
+import MyBookedTable from '@/component/MyBookedTable';
 import React from 'react';
 
-const MyTutorsPage = () => {
+const MyBookedPage = () => {
     return (
         <div>
 
             <h1 className='font-bold text-3xl py-10 text-center'>My Tutors</h1>
             
-            <TablePage />
+            <MyBookedTable />
         </div>
     );
 };
 
-export default MyTutorsPage;
+export default MyBookedPage;

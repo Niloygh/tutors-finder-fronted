@@ -20,11 +20,11 @@ const TablePage = () => {
                             <Table.Row>
                                 <Table.Cell>Kate Moore</Table.Cell>
                                 <Table.Cell>CEO</Table.Cell>
+                                <Table.Cell>On</Table.Cell>
+                                <Table.Cell>500</Table.Cell>
+                                <Table.Cell>20</Table.Cell>
+                                <Table.Cell>02/03/2026</Table.Cell>
                                 <Table.Cell>Active</Table.Cell>
-                                <Table.Cell>kate@acme.com</Table.Cell>
-                                <Table.Cell>kate@acme.com</Table.Cell>
-                                <Table.Cell>kate@acme.com</Table.Cell>
-                                <Table.Cell>kate@acme.com</Table.Cell>
                             </Table.Row>
 
                         </Table.Body>
