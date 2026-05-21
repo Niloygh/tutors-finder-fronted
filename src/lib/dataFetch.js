@@ -1,4 +1,4 @@
-export const tutors = async()=> {
+export const allTutors = async()=> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/limit-tutors`)
     const data = await res.json()
     return data || []
