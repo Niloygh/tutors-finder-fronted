@@ -6,17 +6,28 @@ import { BookOpen, Menu, X, User, LogOut, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import { useSession } from "@/lib/auth-client";
+import { signOut } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter()
+  const {data: sessions, isPending} = useSession()
+  
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogOut = async() => {
+    await signOut()
+    router.push('/')
+  }
 
   return (
     <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md shadow-sm py-2" : "bg-slate-50 py-2"
@@ -80,7 +91,9 @@ export function Navbar() {
                 <Link href="/profile" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                   <LayoutDashboard className="w-4 h-4" /> Profile
                 </Link>
-                <button className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
+                <button 
+                onClick={handleLogOut}
+                className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
                   <LogOut className="w-4 h-4" /> Log Out
                 </button>
               </div>

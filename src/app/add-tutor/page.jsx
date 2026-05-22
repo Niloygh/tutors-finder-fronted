@@ -34,8 +34,8 @@ export default function AddTutorPage() {
     };
 
     return (
-        <div className="px-5">
-            <Form className="w-full max-w-96" onSubmit={onSubmit}>
+        <div className="">
+            <Form className="px-5 w-full max-w-4xl mx-auto shadow pb-10 " onSubmit={onSubmit}>
                 <Fieldset>
                     <Fieldset.Legend className="font-bold text-center text-3xl py-10">Add Tutor</Fieldset.Legend>
 
@@ -201,9 +201,9 @@ export default function AddTutorPage() {
                                 return null;
                             }}
                         >
-                            <Label>Bio</Label>
+                            <Label>Experience</Label>
 
-                            <TextArea placeholder="Tell us about yourself..." />
+                            <TextArea placeholder="Tell us about experience..." />
 
                             <Description>
                                 Minimum 10 characters

@@ -5,6 +5,7 @@ import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import { User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { authClient } from '@/lib/auth-client';
 
 export default function Register() {
 
@@ -14,10 +15,22 @@ export default function Register() {
         e.preventDefault()
         // console.log(e.currentTarget)
 
-        
-        
+        const formData = new FormData(e.currentTarget)
+        // console.log(formData)
+
+        const registerData = Object.fromEntries(formData.entries())
+
+        const { data, error } = await authClient.signUp.email({
+            ...registerData,
+        })
+        if(error){
+            // console.log(error.message)
+            toast.error("register fail")
+            return
+        }
+        router.push('/')
     }
-    
+
 
     return (
         <div className="min-h-[80vh] flex flex-col bg-slate-50 py-12">
