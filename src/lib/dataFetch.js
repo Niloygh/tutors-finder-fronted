@@ -12,7 +12,3 @@ export const limitTutor = async()=> {
     return data || []
 }
 
-
-
-
-

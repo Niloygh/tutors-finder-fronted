@@ -1,6 +1,8 @@
 
 import Btn from "@/component/Btn";
+import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import {
     HiOutlineAcademicCap,
@@ -9,8 +11,12 @@ import {
 } from "react-icons/hi2";
 
 
-const singleTutor = async (id) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`)
+const singleTutor = async (id, token) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`, {
+        headers: {
+            authorization: `bearer ${token}` || ""
+        }
+    })
     const data = await res.json()
     return data
 }
@@ -18,7 +24,11 @@ const singleTutor = async (id) => {
 const TutorsDetailsPage = async ({ params }) => {
     
     const { id } = await params
-    const tutor = await singleTutor(id)
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+    
+    const tutor = await singleTutor(id, token)
 
     return (
         <div className="max-w-5xl mx-auto rounded-3xl border shadow-sm p-4 bg-white">
