@@ -9,28 +9,31 @@ import toast from 'react-hot-toast';
 
 export default function Login() {
 
-    const handleLogin = async(e)=> {
-            e.preventDefault()
-            // console.log(e.currentTarget)
-    
-            const formData = new FormData(e.currentTarget)
-            // console.log(formData)
-    
-            const loginData = Object.fromEntries(formData.entries())
-    
-            const { data, error } = await authClient.signIn.email({
-                ...loginData,
-                callbackURL: '/'
-                
-            })
-            
-            if(error){
-                // console.log(error.message)
-                toast.error("register fail")
-                return
-            }
-            
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        // console.log(e.currentTarget)
+        const formData = new FormData(e.currentTarget)
+        // console.log(formData)
+        const loginData = Object.fromEntries(formData.entries())
+        const { data, error } = await authClient.signIn.email({
+            ...loginData,
+            callbackURL: '/'
+        })
+        if (!error) {
+            toast.error('Login Success')
         }
+        if (error) {
+            // console.log(error.message)
+            toast.error(error.message)
+            return
+        }
+    }
+
+    const handleGoogleLogin = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    }
 
     return (
         <div className="min-h-[80vh] flex flex-col bg-slate-50">
@@ -49,6 +52,7 @@ export default function Login() {
 
                         <div className="space-y-4">
                             <Button
+                            onClick={handleGoogleLogin}
                                 variant="bordered"
                                 className="w-full h-12 font-bold rounded-2xl border-slate-200 hover:bg-slate-50 transition-colors gap-3"
                             >

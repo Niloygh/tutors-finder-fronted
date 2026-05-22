@@ -6,8 +6,7 @@ import { BookOpen, Menu, X, User, LogOut, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useSession } from "@/lib/auth-client";
-import { signOut } from "better-auth/api";
+import { signOut, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 
@@ -15,8 +14,9 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter()
-  const {data: sessions, isPending} = useSession()
-  
+  const { data: sessions, isPending } = useSession()
+  // console.log(sessions)
+
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -24,7 +24,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLogOut = async() => {
+  const handleLogOut = async () => {
     await signOut()
     router.push('/')
   }
@@ -59,16 +59,17 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-4">
 
-            <>
-              <Link href="/login" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Login</Link>
-              <Link href="/register">
 
-                <Button color="primary" className="bg-cyan-500 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
-                  Register
-                </Button>
-              </Link>
-            </>
+            {
+              !isPending && !sessions ? <>
+                <Link href="/login" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Login</Link>
+                <Link href="/register">
 
+                  <Button color="primary" className="bg-cyan-500 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
+                    Register
+                  </Button>
+                </Link>
+              </>:
             <div className="relative group">
               <button className="flex items-center gap-3 p-1 rounded-full hover:bg-muted transition-colors border border-transparent hover:border-border">
                 <Image
@@ -91,13 +92,17 @@ export function Navbar() {
                 <Link href="/profile" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                   <LayoutDashboard className="w-4 h-4" /> Profile
                 </Link>
-                <button 
-                onClick={handleLogOut}
-                className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
+                <button
+                  onClick={handleLogOut}
+                  className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
                   <LogOut className="w-4 h-4" /> Log Out
                 </button>
               </div>
             </div>
+          }
+
+
+
 
           </div>
 

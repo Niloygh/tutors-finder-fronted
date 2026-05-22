@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 export default function Register() {
 
     const router = useRouter()
 
-    const handleRegister = async(e)=> {
+    const handleRegister = async (e) => {
         e.preventDefault()
         // console.log(e.currentTarget)
 
@@ -23,9 +24,15 @@ export default function Register() {
         const { data, error } = await authClient.signUp.email({
             ...registerData,
         })
-        if(error){
+
+
+        if (!error) {
+            toast.success("Register Success")
+        }
+
+        if (error) {
             // console.log(error.message)
-            toast.error("register fail")
+            toast.error(error.message)
             return
         }
         router.push('/')
@@ -41,7 +48,7 @@ export default function Register() {
 
                         <div className="text-center space-y-2 relative">
                             <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                                Join <span className="text-blue-600">Mentora</span>
+                                Join <span className="text-blue-600">Tutor Finder</span>
                             </h2>
                             <p className="text-slate-500 font-medium">Create your account to start learning</p>
                         </div>
