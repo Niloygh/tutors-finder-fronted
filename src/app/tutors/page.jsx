@@ -4,6 +4,12 @@ import SearchInput from '@/component/SearchInput';
 import { allTutors } from '@/lib/dataFetch';
 import React from 'react';
 
+
+export const metadata = {
+  title: "Tutor Finder | Tutors Page",
+};
+
+
 const TutorPage = async () => {
     const tutors = await allTutors()
     return (

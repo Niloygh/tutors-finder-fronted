@@ -1,6 +1,11 @@
 import TablePage from '@/component/MyTutors';
 import React from 'react';
 
+export const metadata = {
+  title: "Tutor Finder | My Tutor",
+};
+
+
 const MyTutorsPage = () => {
     return (
         <div>

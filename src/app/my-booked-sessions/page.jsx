@@ -1,6 +1,11 @@
 import MyBookedTable from '@/component/MyBookedTable';
 import React from 'react';
 
+export const metadata = {
+  title: "Tutor Finder | My Book Sessions",
+};
+
+
 const MyBookedPage = () => {
     return (
         <div>

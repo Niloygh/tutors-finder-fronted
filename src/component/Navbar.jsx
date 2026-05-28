@@ -91,7 +91,7 @@ export function Navbar() {
                   </button>
                   <div className="absolute right-0 top-12 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl hidden group-hover:flex flex-col py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-4 py-3 border-b border-slate-100">
-                      <p className="font-bold text-sm">Welcome back!</p>
+                      <p className="font-bold text-sm">Welcome back! <span>{user?.name}</span> </p>
                       <p className="text-xs truncate text-slate-500">{user?.email}</p>
                     </div>
                     <Link href="/profile" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">

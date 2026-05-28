@@ -10,6 +10,14 @@ import {
     HiOutlineMapPin,
 } from "react-icons/hi2";
 
+export async function generateMetadata({ params }) {
+    const { id } = await params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`)
+    const data = await res.json()
+    return {
+        title: `Tutor Finder | ${data.name}`,
+    };
+}
 
 const singleTutor = async (id, token) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`, {
