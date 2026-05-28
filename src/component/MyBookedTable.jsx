@@ -1,8 +1,16 @@
+import { auth } from '@/lib/auth';
 import { Button, Table } from '@heroui/react';
+import { headers } from 'next/headers';
 import React from 'react';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
-const MyBookedTable = () => {
+const MyBookedTable = async () => {
+
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+    
+    
     return (
         <div>
             <Table>

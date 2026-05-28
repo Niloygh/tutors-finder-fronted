@@ -47,7 +47,7 @@ export default function AddTutorPage() {
                             type="text"
                         >
                             <Label>Tutor Name</Label>
-                            <Input placeholder="John Doe" />
+                            <Input placeholder="Tutor name" />
                             <FieldError />
                         </TextField>
 
@@ -58,7 +58,7 @@ export default function AddTutorPage() {
                             type="email"
                         >
                             <Label>Email</Label>
-                            <Input placeholder="john@example.com" />
+                            <Input placeholder="Your Email" />
                             <FieldError />
                         </TextField>
 
@@ -70,7 +70,7 @@ export default function AddTutorPage() {
                             type="url"
                         >
                             <Label>Photo URL</Label>
-                            <Input placeholder="John Doe" />
+                            <Input placeholder="Your Photo URL" />
                             <FieldError />
                         </TextField>
 
@@ -84,7 +84,7 @@ export default function AddTutorPage() {
                             <Select.Popover>
                                 <ListBox>
                                     <ListBox.Item id="florida" textValue="Florida">
-                                        Bangla 
+                                        Bangla
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
                                     <ListBox.Item id="delaware" textValue="Delaware">
@@ -116,10 +116,10 @@ export default function AddTutorPage() {
                         <TextField
                             isRequired
                             name="availableData"
-                            type="date"
+                            type="text"
                         >
                             <Label>Available Days and Time</Label>
-                            <Input />
+                            <Input placeholder="Sun-Thu 5.00 PM - 8.00 PM" />
                             <FieldError />
                         </TextField>
 
@@ -168,7 +168,7 @@ export default function AddTutorPage() {
                             name="institution"
                             type="text"
                         >
-                            <Label>Institution</Label>
+                            <Label>Dhaka University</Label>
                             <Input placeholder="Institution" />
                             <FieldError />
                         </TextField>
@@ -189,7 +189,7 @@ export default function AddTutorPage() {
 
 
 
-                        {/* Bio */}
+                        {/* Experience */}
                         <TextField
                             isRequired
                             name="bio"
@@ -203,7 +203,10 @@ export default function AddTutorPage() {
                         >
                             <Label>Experience</Label>
 
-                            <TextArea placeholder="Tell us about experience..." />
+                            <TextArea
+                                className="min-h-25 resize-none w-full rounded-md border border-gray-300 p-3"
+                                placeholder="Tell us about experience..."
+                            />
 
                             <Description>
                                 Minimum 10 characters
@@ -221,7 +224,7 @@ export default function AddTutorPage() {
                             <Select.Popover>
                                 <ListBox>
                                     <ListBox.Item id="florida" textValue="Florida">
-                                        Online 
+                                        Online
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
                                     <ListBox.Item id="delaware" textValue="Delaware">

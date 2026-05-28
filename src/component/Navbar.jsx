@@ -14,7 +14,7 @@ export function Navbar() {
 
   const userData = authClient.useSession()
   const user = userData.data?.user
-  console.log(user)
+  // console.log(user)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
