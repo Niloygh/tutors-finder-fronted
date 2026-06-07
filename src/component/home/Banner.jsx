@@ -13,7 +13,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 
 const Banner = () => {
     return (
-        <div>
+        <div className='md:px-5'>
 
             <Swiper
                 navigation

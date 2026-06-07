@@ -1,5 +1,7 @@
 "use client";
 
+import { addTutor } from "@/lib/action";
+import { authClient } from "@/lib/auth-client";
 import { FloppyDisk } from "@gravity-ui/icons";
 import {
     Button,
@@ -15,29 +17,53 @@ import {
     Select,
     ListBox,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 
-export default function AddTutor() {
-    const onSubmit = (e) => {
-        e.preventDefault();
+export default function AddTutor({user}) {
+    const router = useRouter()
+    // const userData = authClient.useSession()
+    //     const user = userData?.data?.user
+    //     // console.log(user)
+        const {email} = user;
+        // console.log(email)
 
-        const formData = new FormData(e.currentTarget);
-        const data = {};
+    const handleSubmit = async(formData)=> {
+        
+        formData.userEmail= user?.email
+        const data = await addTutor(formData, user?.email);
+        console.log(formData)
+        if(data?.insertedId){
+            toast.success("Tutor Added")
+            router.push('/tutors')  
+        } else{
+            console.error("Failed to insert tutor")
+        }
+    }
 
-        // Convert FormData to plain object
-        formData.forEach((value, key) => {
-            data[key] = value.toString();
-        });
 
-        console.log(data);
 
-        alert("Form submitted successfully!");
-    };
+    // const onSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     const formData = new FormData(e.currentTarget);
+    //     const data = {};
+
+    //     // Convert FormData to plain object
+    //     formData.forEach((value, key) => {
+    //         data[key] = value.toString();
+    //     });
+
+    //     console.log(data);
+
+    //     alert("Form submitted successfully!");
+    // };
 
     return (
         <div className="">
-            <Form className="px-5 w-full max-w-4xl mx-auto shadow pb-10 " onSubmit={onSubmit}>
+            <Form action={handleSubmit} className="px-5 w-full max-w-4xl mx-auto shadow pb-10 ">
                 <Fieldset>
                     <Fieldset.Legend className="font-bold text-center text-3xl py-10">Add Tutor</Fieldset.Legend>
 
@@ -53,22 +79,10 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-                        {/* Email */}
-                        <TextField
-                            isRequired
-                            name="email"
-                            type="email"
-                        >
-                            <Label>Email</Label>
-                            <Input placeholder="Your Email" />
-                            <FieldError />
-                        </TextField>
-
-
                         {/* Photo  */}
                         <TextField
                             isRequired
-                            name="Photo"
+                            name="image"
                             type="url"
                         >
                             <Label>Photo URL</Label>
@@ -76,8 +90,8 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-
-                        <Select className="w-[256px]" placeholder="Select one">
+                        {/* category */}
+                        <Select name="category" className="max-w-[256px]" placeholder="Select one">
                             <Label>State</Label>
                             <Select.Trigger>
                                 <Select.Value />
@@ -85,27 +99,27 @@ export default function AddTutor() {
                             </Select.Trigger>
                             <Select.Popover>
                                 <ListBox>
-                                    <ListBox.Item id="florida" textValue="Florida">
+                                    <ListBox.Item id="Bangla" textValue="Bangla">
                                         Bangla
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="delaware" textValue="Delaware">
+                                    <ListBox.Item id="English" textValue="English">
                                         English
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="california" textValue="California">
+                                    <ListBox.Item id="Biology" textValue="Biology">
                                         Biology
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="texas" textValue="Texas">
+                                    <ListBox.Item id="Chemistry" textValue="Chemistry">
                                         Chemistry
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="new-york" textValue="New York">
+                                    <ListBox.Item id="Physics" textValue="Physics">
                                         Physics
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="washington" textValue="Washington">
+                                    <ListBox.Item id="Mathematics" textValue="Mathematics">
                                         Mathematics
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
@@ -113,23 +127,21 @@ export default function AddTutor() {
                             </Select.Popover>
                         </Select>
 
-
                         {/* date  */}
                         <TextField
                             isRequired
-                            name="availableData"
+                            name="time_slot"
                             type="text"
                         >
                             <Label>Available Days and Time</Label>
-                            <Input placeholder="Sun-Thu 5.00 PM - 8.00 PM" />
+                            <Input placeholder="5.00 PM - 8.00 PM" />
                             <FieldError />
                         </TextField>
-
 
                         {/* fee  */}
                         <TextField
                             isRequired
-                            name="Fee"
+                            name="hourly_rate"
                             type="number"
                         >
                             <Label>Hourly Fee</Label>
@@ -137,11 +149,10 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-
                         {/* slot  */}
                         <TextField
                             isRequired
-                            name="slot"
+                            name="remaining_slot"
                             type="number"
                         >
                             <Label>Total Slot</Label>
@@ -149,12 +160,10 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-
-
                         {/* Start Date  */}
                         <TextField
                             isRequired
-                            name="startDate"
+                            name="session_start_date"
                             type="date"
                         >
                             <Label>Session Start Date</Label>
@@ -162,20 +171,16 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-
-
                         {/* institution  */}
                         <TextField
                             isRequired
                             name="institution"
                             type="text"
                         >
-                            <Label>Dhaka University</Label>
-                            <Input placeholder="Institution" />
+                            <Label>Institution</Label>
+                            <Input placeholder="Your Institution Name" />
                             <FieldError />
                         </TextField>
-
-
 
                         {/* location  */}
                         <TextField
@@ -188,13 +193,10 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-
-
-
                         {/* Experience */}
                         <TextField
                             isRequired
-                            name="bio"
+                            name="experience"
                             validate={(value) => {
                                 if (value.length < 10) {
                                     return "Bio must be at least 10 characters";
@@ -217,23 +219,23 @@ export default function AddTutor() {
                             <FieldError />
                         </TextField>
 
-                        <Select className="w-[256px]" placeholder="Select one">
-                            <Label>State</Label>
+                        <Select name="mode" className="w-[256px]" placeholder="Select one">
+                            <Label>Status</Label>
                             <Select.Trigger>
                                 <Select.Value />
                                 <Select.Indicator />
                             </Select.Trigger>
                             <Select.Popover>
                                 <ListBox>
-                                    <ListBox.Item id="florida" textValue="Florida">
+                                    <ListBox.Item id="Online" textValue="Online">
                                         Online
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="delaware" textValue="Delaware">
+                                    <ListBox.Item id="Offline" textValue="Offline">
                                         Offline
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
-                                    <ListBox.Item id="california" textValue="California">
+                                    <ListBox.Item id="both" textValue="Both">
                                         Both
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>

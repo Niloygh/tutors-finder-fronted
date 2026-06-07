@@ -1,5 +1,4 @@
 'use client'
-
 import {
   Button,
   Calendar,
@@ -13,8 +12,33 @@ import {
   Label,
   TextField
 } from '@heroui/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 const SearchInput = () => {
+  const router = useRouter()
+
+  const [search, setSearch]= useState('')
+  const searchParams = useSearchParams()
+
+
+  // const sParams = await searchParams
+  // console.log(sParams)
+
+  const handleSearch = (value) => {
+  setSearch(value);
+
+  const params = new URLSearchParams(searchParams);
+
+  if (value) {
+    params.set('searchItem', value);
+  } else {
+    params.delete('searchItem');
+  }
+
+  router.push(`/tutors?${params.toString()}`);
+};
+  
   return (
     <div className="w-full">
       <Form className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
@@ -25,6 +49,8 @@ const SearchInput = () => {
             <TextField name="search">
               <Label>Search Tutor</Label>
               <Input
+              value={search}
+              onChange={(e)=> handleSearch(e.target.value)}
                 placeholder="Search tutor by name"
                 className="w-full"
               />

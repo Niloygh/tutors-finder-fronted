@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ModalPage } from './ModalPage';
 
-const Btn = () => {
+const Btn = ({tutor}) => {
     const [open, setOpen] = useState(false);
 
 
@@ -11,7 +11,7 @@ const Btn = () => {
     return (
         <div>
             {/* Modal */}
-            <ModalPage open={open} setOpen={true} />
+            <ModalPage open={open} setOpen={true} tutor={tutor} />
         </div>
     );
 };

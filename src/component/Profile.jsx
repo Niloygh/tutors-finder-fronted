@@ -8,6 +8,7 @@ import React from 'react';
 const Profile = () => {
     const userData = authClient.useSession()
     const user = userData.data?.user
+    // console.log(user)
     
     return (
         <div>

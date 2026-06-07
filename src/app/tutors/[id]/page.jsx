@@ -1,7 +1,6 @@
 
 import Btn from "@/component/Btn";
 import { auth } from "@/lib/auth";
-import { Button } from "@heroui/react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import {
@@ -30,13 +29,27 @@ const singleTutor = async (id, token) => {
 }
 
 const TutorsDetailsPage = async ({ params }) => {
+
     
+
     const { id } = await params
-    const {token} = await auth.api.getToken({
+    const { token } = await auth.api.getToken({
         headers: await headers()
     })
-    
+
     const tutor = await singleTutor(id, token)
+    console.log(tutor)
+    // console.log(tutor)
+
+    const formattedDate = new Date(tutor?.session_start_date).toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        }
+    );
 
     return (
         <div className="max-w-5xl mx-auto rounded-3xl border shadow-sm p-4 bg-white">
@@ -57,7 +70,7 @@ const TutorsDetailsPage = async ({ params }) => {
                     style={{ height: "400px" }}
                 >
                     <Image
-                        src={tutor?.image}
+                        src={tutor?.image || 'https://images.unsplash.com/photo-1516321497487-e288fb19713f'}
                         alt={tutor?.name}
                         fill
                         className="object-cover"
@@ -107,13 +120,15 @@ const TutorsDetailsPage = async ({ params }) => {
                         <div className="mt-5 bg-default-100 rounded-xl p-4">
                             <p className="text-sm mb-1">
                                 <span className="font-semibold">
-                                    Available Time:
+                                    Available Time: 
                                 </span>{" "}
                                 {tutor?.time_slot}
                             </p>
+                            <p>{formattedDate}</p>
+                            <p></p>
 
                             <p className="text-success font-semibold">
-                                Remaining Slots: {tutor?.remaining_slot}
+                                Remaining Slots: {tutor?.remaining_slot || 10}
                             </p>
                         </div>
                     </div>
@@ -131,7 +146,7 @@ const TutorsDetailsPage = async ({ params }) => {
                         </div>
 
                         <div className="sm:w-auto">
-                            <Btn />
+                            <Btn tutor={tutor} />
                         </div>
                     </div>
 

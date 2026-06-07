@@ -10,8 +10,12 @@ export const metadata = {
 };
 
 
-const TutorPage = async () => {
-    const tutors = await allTutors()
+const TutorPage = async ({searchParams}) => {
+
+    const sParams = await searchParams
+    // console.log(sParams)
+    
+    const tutors = await allTutors(sParams?.searchItem || "")
     return (
         <div className='my-10 px-10'>
             <h1 className='text-center font-bold text-3xl pb-10'>All Tutors</h1>

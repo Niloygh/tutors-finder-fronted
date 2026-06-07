@@ -22,7 +22,7 @@ const Footer = () => {
             {/* Content */}
             <div className="max-w-7xl mx-auto px-6 py-16">
                 {/* Top Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Brand */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">

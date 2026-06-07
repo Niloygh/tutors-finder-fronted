@@ -10,7 +10,7 @@ const MyBookedPage = () => {
     return (
         <div>
 
-            <h1 className='font-bold text-3xl py-10 text-center'>My Tutors</h1>
+            <h1 className='font-bold text-3xl py-10 text-center'>My Booked Session</h1>
             
             <MyBookedTable />
         </div>
