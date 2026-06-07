@@ -41,7 +41,7 @@ const MyTuitions = ({ myData }) => {
             <Table.Cell>{myData.remaining_slot}</Table.Cell>
             <Table.Cell>{formattedDate}</Table.Cell>
             <Table.Cell className={'flex justify-center items-center gap-2'}>
-                <UpDateModal />
+                <UpDateModal myData={myData} />
                 <Button
                     onClick={() => handleDelete(myData._id)}
                     variant='danger'>

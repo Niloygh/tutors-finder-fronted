@@ -1,66 +1,73 @@
 import { Button, Card } from "@heroui/react";
-import { BookOpen, CalendarDays, Clock3, Star } from "lucide-react";
+import { BookOpen, CalendarDays, Clock3 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export function AvailableTutorCard({ tutor }) {
-  console.log(tutor)
-
-const formattedDate = new Date(tutor.session_start_date).toLocaleDateString(
-  "en-US",
-  {
+  const formattedDate = new Date(
+    tutor?.session_start_date
+  ).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  }
-);
-  
+  });
+
   return (
-    <Card className="max-w-100 hover:scale-103 transition-all duration-300 ease-in-out">
-      <div className="relative w-full h-62.5 overflow-hidden rounded-xl my-3">
+    <Card className="max-w-100 p-4 bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all duration-300">
+      {/* Image */}
+      <div className="relative w-full h-64 overflow-hidden rounded-xl">
         <Image
-          src={tutor?.image || "https://images.unsplash.com/photo-1516321497487-e288fb19713f"} 
-          alt= {tutor?.name}
+          src={
+            tutor?.image ||
+            "https://images.unsplash.com/photo-1516321497487-e288fb19713f"
+          }
+          alt={tutor?.name || "Tutor"}
           fill
           className="object-cover"
         />
       </div>
 
-      <Card.Header className="space-y-1">
-
-
-        <Card.Title className="font-bold text-2xl text-slate-800">
+      {/* Content */}
+      <Card.Header className="flex flex-col items-start gap-3 pt-4">
+        {/* Name */}
+        <Card.Title className="text-2xl font-bold text-gray-900 dark:text-white">
           {tutor?.name}
         </Card.Title>
 
-        <div className="flex items-center gap-2 text-gray-600 mb-5">
+        {/* Subject */}
+        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
           <BookOpen size={18} />
-          <p>{tutor?.category}</p>
+          <span>{tutor?.category}</span>
         </div>
 
-
-
-        <div className="flex items-center gap-2 text-gray-600">
+        {/* Time */}
+        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
           <Clock3 size={18} />
-          <p>{tutor?.time_slot}</p>
+          <span>{tutor?.time_slot}</span>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-600">
+        {/* Date */}
+        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
           <CalendarDays size={18} />
-          <p>{formattedDate}</p>
+          <span>{formattedDate}</span>
         </div>
 
-        <div className="text-blue-600 font-bold text-xl">
-          {tutor?.hourly_rate}<span className="text-sm text-gray-500">/hr</span>
+        {/* Rate */}
+        <div className="text-2xl font-bold text-blue-600 dark:text-cyan-400">
+          {tutor?.hourly_rate}
+          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            /hr
+          </span>
         </div>
-
       </Card.Header>
 
-      <Link href={`/tutors/${tutor?._id}`} >
-        <Button className={'bg-cyan-500 w-full'} >Book Session</Button>
+      {/* Button */}
+      <Link href={`/tutors/${tutor?._id}`} className="w-full mt-4">
+        <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold">
+          Book Session
+        </Button>
       </Link>
-
     </Card>
   );
 }

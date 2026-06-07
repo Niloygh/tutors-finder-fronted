@@ -1,27 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import { BookOpen, Menu, X, User, LogOut, LayoutDashboard } from "lucide-react";
+import {
+  BookOpen,
+  Menu,
+  X,
+  LogOut,
+  LayoutDashboard,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import { authClient, signOut, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-
+import { ThemeSwitch } from "./home/ThemeSwitch";
 
 export function Navbar() {
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
 
-  const userData = authClient.useSession()
-  const user = userData.data?.user
-  // console.log(user)
+  const { data: sessions, isPending } = useSession();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const router = useRouter()
-  const { data: sessions, isPending } = useSession()
-  // console.log(sessions)
 
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -30,128 +33,139 @@ export function Navbar() {
   }, []);
 
   const handleLogOut = async () => {
-    await signOut()
-    router.push('/')
-  }
+    await signOut();
+    router.push("/");
+  };
 
   return (
-    <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md shadow-sm py-2" : "bg-slate-50 py-2"
-      }`}>
+    <nav
+      className={`sticky top-0 z-50 transition-all duration-300 border-b
+      ${
+        scrolled
+          ? "bg-white/70 dark:bg-[#0B1120]/70 backdrop-blur-md shadow-sm"
+          : "bg-white dark:bg-[#0B1120]"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="p-2 bg-blue-600 rounded-xl group-hover:rotate-12 transition-transform">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <span className="font-extrabold text-2xl bg-linear-to-r from-blue-600 to-[#2C5EAD] bg-clip-text text-transparent">
-                Tutor Finder
-              </span>
-            </Link>
+
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="p-2 bg-blue-600 rounded-xl group-hover:rotate-12 transition">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-extrabold text-2xl bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+              Tutor Finder
+            </span>
+          </Link>
+
+          {/* MENU */}
+          <div className="hidden md:flex gap-6 items-center">
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/tutors">Tutors</NavLink>
+            <NavLink href="/add-tutor">Add Tutor</NavLink>
+            <NavLink href="/my-tutors">My Tutors</NavLink>
+            <NavLink href="/my-booked-sessions">My Booked Session</NavLink>
           </div>
 
-          <div className="hidden md:flex gap-4 items-center">
-            <Link href="/" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Home</Link>
+          {/* RIGHT SIDE */}
+          <div className="flex items-center gap-4">
 
-            <Link href="/tutors" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Tutors</Link>
+            <ThemeSwitch />
 
-            <Link href="/add-tutor" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Add Tutor</Link>
+            {/* AUTH */}
+            {!isPending && !sessions ? (
+              <div className="flex items-center gap-3">
+                <Link href="/login" className="text-sm font-medium">
+                  Login
+                </Link>
 
-            <Link href="/my-tutors" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Tutors</Link>
-
-            <Link href="/my-booked-sessions" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">My Booked Sessions</Link>
-          </div>
-
-          <div className="hidden md:flex items-center gap-4">
-
-
-            {
-              !isPending && !sessions ? <>
-                <Link href="/login" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Login</Link>
                 <Link href="/register">
-
-                  <Button color="primary" className="bg-cyan-500 font-bold rounded-full px-8 shadow-lg shadow-blue-600/20">
+                  <Button className="bg-cyan-500 text-white rounded-full px-6">
                     Register
                   </Button>
                 </Link>
-              </> :
-                <div className="relative group">
-                  <button className="flex items-center gap-3 p-1 rounded-full hover:bg-muted transition-colors border border-transparent hover:border-border">
-                    <Image
-                      width={40}
-                      height={40}
-                      src={user?.image || "/default-avatar.png"}
-                      alt="avatar"
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-600/10"
-                    />
-                    <div className="text-left hidden lg:block">
-                      <p className="text-sm font-bold truncate max-w-25">{user?.name}</p>
-                      <p className="text-[10px] text-slate-500">Student</p>
-                    </div>
+              </div>
+            ) : (
+              <div className="relative group">
+                <button className="flex items-center gap-2">
+                  <Image
+                    width={40}
+                    height={40}
+                    src={user?.image || "/default-avatar.png"}
+                    alt="avatar"
+                    className="rounded-full"
+                  />
+                  <span className="hidden lg:block text-sm font-medium">
+                    {user?.name}
+                  </span>
+                </button>
+
+                {/* DROPDOWN */}
+                <div className="absolute right-0 top-12 hidden group-hover:flex flex-col w-56 bg-white dark:bg-[#0B1120] border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden">
+                  <Link
+                    href="/profile"
+                    className="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2"
+                  >
+                    <LayoutDashboard className="w-4 h-4" />
+                    Profile
+                  </Link>
+
+                  <button
+                    onClick={handleLogOut}
+                    className="px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Logout
                   </button>
-                  <div className="absolute right-0 top-12 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl hidden group-hover:flex flex-col py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="px-4 py-3 border-b border-slate-100">
-                      <p className="font-bold text-sm">Welcome back! <span>{user?.name}</span> </p>
-                      <p className="text-xs truncate text-slate-500">{user?.email}</p>
-                    </div>
-                    <Link href="/profile" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
-                      <LayoutDashboard className="w-4 h-4" /> Profile
-                    </Link>
-                    <button
-                      onClick={handleLogOut}
-                      className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
-                      <LogOut className="w-4 h-4" /> Log Out
-                    </button>
-                  </div>
                 </div>
-            }
+              </div>
+            )}
 
-
-
-
-          </div>
-
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg hover:bg-muted transition-colors">
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {/* MOBILE MENU BUTTON */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2"
+            >
+              {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* MOBILE MENU */}
       {isMenuOpen && (
-        <div className="md:hidden px-4 pt-2 pb-6 space-y-2 bg-white border-b border-slate-200 animate-in slide-in-from-top duration-300">
-          <Link href="/" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Home</Link>
-
-          <Link href="/tutors" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Tutors</Link>
-
-          <Link href="/add-tutor" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Add Tutor</Link>
-
-          <Link href="/my-tutors" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">My Tutors</Link>
-
-          <Link href="/my-booked-sessions" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">My Booked Sessions</Link>
-          <div className="pt-4 border-t border-border mt-4">
-
-            <div className="grid grid-cols-2 gap-4">
-              <Link href="/login">
-                <Button href="/login" variant="bordered" className="rounded-xl">Login</Button>
-              </Link>
-              <Link href="/register">
-                <Button href="/register" color="primary" className="rounded-xl">Register</Button>
-              </Link>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Link href={'profile'} >
-                <p className="px-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">Profile</p>
-              </Link>
-              <button className="block w-full text-left px-4 py-3 text-base font-medium text-red-500 hover:bg-red-50 rounded-xl">Log Out</button>
-            </div>
-
-          </div>
+        <div className="md:hidden bg-white dark:bg-[#0B1120] border-t p-4 space-y-3">
+          <MobileLink href="/">Home</MobileLink>
+          <MobileLink href="/tutors">Tutors</MobileLink>
+          <MobileLink href="/add-tutor">Add Tutor</MobileLink>
+          <MobileLink href="/my-tutors">My Tutors</MobileLink>
+          <MobileLink href="/my-booked-sessions">My Booked Session</MobileLink>
         </div>
       )}
     </nav>
+  );
+}
+
+/* Helpers */
+function NavLink({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="text-slate-700 dark:text-slate-200 hover:text-cyan-500 transition font-medium"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function MobileLink({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+    >
+      {children}
+    </Link>
   );
 }

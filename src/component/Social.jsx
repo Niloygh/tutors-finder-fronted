@@ -4,7 +4,7 @@ const Social = () => {
   return (
     <ul className="flex items-center gap-4 list-none p-0 m-0">
       {/* Facebook */}
-      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#1877f2] hover:text-white">
+      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white dark:bg-[#1877f2] shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#1877f2] hover:text-white">
         <span className="absolute -top-[42px] invisible whitespace-nowrap rounded-md bg-[#1877f2] px-3 py-1.5 text-xs font-medium text-white opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
           Facebook
           <span className="absolute bottom-[-5px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 rotate-45 bg-[#1877f2]" />
@@ -21,7 +21,7 @@ const Social = () => {
       </li>
 
       {/* Twitter */}
-      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#1da1f2] hover:text-white">
+      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white dark:bg-[#1da1f2] shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#1da1f2] hover:text-white">
         <span className="absolute -top-[42px] invisible whitespace-nowrap rounded-md bg-[#1da1f2] px-3 py-1.5 text-xs font-medium text-white opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
           Twitter
           <span className="absolute bottom-[-5px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 rotate-45 bg-[#1da1f2]" />
@@ -38,7 +38,7 @@ const Social = () => {
       </li>
 
       {/* Instagram */}
-      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#e4405f] hover:text-white">
+      <li className="group relative flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full bg-white dark:bg-[#e4405f] shadow-[0_5px_15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-[#e4405f] hover:text-white">
         <span className="absolute -top-[42px] invisible whitespace-nowrap rounded-md bg-[#e4405f] px-3 py-1.5 text-xs font-medium text-white opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
           Instagram
           <span className="absolute bottom-[-5px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 rotate-45 bg-[#e4405f]" />

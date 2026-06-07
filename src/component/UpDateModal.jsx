@@ -17,7 +17,37 @@ import {
   TextField,
 } from "@heroui/react";
 
-export function UpDateModal() {
+export function UpDateModal({myData}) {
+  console.log(myData)
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const updateData = Object.fromEntries(formData.entries());
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/tutor/dataUp/${tutor._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.modifiedCount > 0) {
+      toast.success("Tutor Updated Successfully");
+    } else {
+      toast.error("No changes were made");
+    }
+  };
+
+
   return (
     <Modal>
       <Button variant="secondary">
@@ -70,6 +100,7 @@ export function UpDateModal() {
                   w-full
                   mx-auto
                   bg-white
+                  dark:bg-black/10
                   rounded-xl
                   p-2
                   sm:p-4
@@ -266,6 +297,7 @@ export function UpDateModal() {
                       slot="close"
                       variant="outline"
                       className="w-full sm:w-auto"
+                      onClick={handleUpdate}
                     >
                       Cancel
                     </Button>

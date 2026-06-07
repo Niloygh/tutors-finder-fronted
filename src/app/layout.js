@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/component/Navbar";
 import Footer from "@/component/Footer";
 import { Toaster } from "react-hot-toast";
+import { NextThemeProvider } from "@/nextThemeProvider/NextThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,16 +16,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en" data-theme="light"
-      className={`${inter.className} h-full antialiased `}
+      lang="en"
+      className={`${inter.className} h-full antialiased bg-background text-foreground `}
+      suppressHydrationWarning
     >
       <body className="">
-        <Navbar />
-        <main className="container mx-auto">
-          {children}
-          <Toaster /> 
-        </main>
-        <Footer/>
+
+
+        <NextThemeProvider >
+          <Navbar />
+          <main className="container mx-auto">
+            {children}
+            <Toaster />
+          </main>
+          <Footer />
+        </NextThemeProvider>
+
+
       </body>
     </html>
   );
