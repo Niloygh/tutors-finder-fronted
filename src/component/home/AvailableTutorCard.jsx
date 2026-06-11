@@ -84,7 +84,9 @@ export function AvailableTutorCard({ tutor }) {
 
       {/* Button */}
       <Link href={`/tutors/${tutor?._id}`} className="w-full mt-4">
-        <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold">
+        <Button 
+        isDisabled={active}
+        className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold">
           Book Session
         </Button>
       </Link>

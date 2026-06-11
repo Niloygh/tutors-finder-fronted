@@ -25,6 +25,7 @@ export function ModalPage({ tutor }) {
   // console.log(session)
 
   const handleEnroll = async (e) => {
+    
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const registerData = Object.fromEntries(formData.entries())
@@ -37,7 +38,7 @@ export function ModalPage({ tutor }) {
       toast.error("authentication failed. Enrollment not add.")
       return;
     }
-
+   
 
     const upDateData = {
       userId: session?.user?.id,
@@ -45,6 +46,7 @@ export function ModalPage({ tutor }) {
       studentEmail: registerData?.email,
       studentNumber: registerData?.number,
       tutorName: registerData?.tutorName,
+      session_start_date: tutor.session_start_date,
     }
 
     const res = await fetch(
