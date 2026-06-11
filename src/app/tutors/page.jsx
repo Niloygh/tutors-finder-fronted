@@ -6,16 +6,24 @@ import React from 'react';
 
 
 export const metadata = {
-  title: "Tutor Finder | Tutors Page",
+    title: "Tutor Finder | Tutors Page",
 };
 
 
-const TutorPage = async ({searchParams}) => {
-
+const TutorPage = async ({ searchParams }) => {
     const sParams = await searchParams
-    // console.log(sParams)
+
+    const search =  sParams?.searchItem || '';
+    const startDate =  sParams?.startDate;
+    const endDate =  sParams?.endDate;
+
+    const tutors = await allTutors(search, startDate, endDate);
+
     
-    const tutors = await allTutors(sParams?.searchItem || "")
+
+    console.log(sParams)
+
+
     return (
         <div className='my-10 px-10'>
             <h1 className='text-center font-bold text-3xl pb-10'>All Tutors</h1>

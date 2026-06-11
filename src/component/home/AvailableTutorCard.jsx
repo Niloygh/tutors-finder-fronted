@@ -1,9 +1,16 @@
+'use client'
+
 import { Button, Card } from "@heroui/react";
 import { BookOpen, CalendarDays, Clock3 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function AvailableTutorCard({ tutor }) {
+
+  const [active, setActive] = useState(true)
+
+
   const formattedDate = new Date(
     tutor?.session_start_date
   ).toLocaleDateString("en-US", {
@@ -12,6 +19,19 @@ export function AvailableTutorCard({ tutor }) {
     month: "long",
     day: "numeric",
   });
+
+  const currentDate = new Date();
+  const TutorDate = new Date(tutor?.session_start_date);
+
+  useEffect(() => {
+    if (currentDate < TutorDate) {
+      setActive(false);
+    } else {
+      setActive(true);
+    }
+  }, [currentDate, TutorDate]);
+
+
 
   return (
     <Card className="max-w-100 p-4 bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all duration-300">

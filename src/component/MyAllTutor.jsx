@@ -11,7 +11,7 @@ const MyAllTutor = ({tutors}) => {
     // console.log(user?.email)
 
     
-    const myAllData = tutors.filter(tutor=> tutor.userEmail === user?.email)
+    // const myAllData = tutors.filter(tutor=> tutor.userEmail === user?.email)
     // console.log(myAllData)
     
     return (
@@ -29,7 +29,7 @@ const MyAllTutor = ({tutors}) => {
                         </Table.Header>
                         <Table.Body>
                             {
-                                myAllData.map((myData)=> <MyTuitions key={myData._id} myData={myData} />)
+                                tutors.map((myData)=> <MyTuitions key={myData._id} myData={myData} />)
                             }
 
                         </Table.Body>

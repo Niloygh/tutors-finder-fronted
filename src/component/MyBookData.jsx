@@ -23,6 +23,7 @@ const MyBookData = ({ enroll }) => {
 
             if (data.modifiedCount > 0) {
                 setActive(false);
+                window.location.reload()
             }
         };
 

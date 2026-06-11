@@ -1,9 +1,12 @@
 import { Button, Table } from '@heroui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { UpDateModal } from './UpDateModal';
 import { TrashBin } from '@gravity-ui/icons';
 
 const MyTuitions = ({ myData }) => {
+
+    const [off, setOff] = useState(true)
+
     // console.log(myData._id)
 
     const handleDelete = async (id) => {
@@ -18,6 +21,18 @@ const MyTuitions = ({ myData }) => {
             window.location.reload()
         }
     }
+
+    const currentDate = new Date();
+    const givenDate = new Date(myData.session_start_date);
+
+    useEffect(() => {
+        const currentDate = new Date();
+        const givenDate = new Date(myData.session_start_date);
+
+        if (currentDate > givenDate) {
+            setOff(false);
+        }
+    }, [myData.session_start_date]);
 
 
 
@@ -36,7 +51,7 @@ const MyTuitions = ({ myData }) => {
         <Table.Row>
             <Table.Cell>{myData.name}</Table.Cell>
             <Table.Cell>{myData.category}</Table.Cell>
-            <Table.Cell>On</Table.Cell>
+            <Table.Cell>{off ? 'On' : 'Off'}</Table.Cell>
             <Table.Cell>{myData.hourly_rate}</Table.Cell>
             <Table.Cell>{myData.remaining_slot}</Table.Cell>
             <Table.Cell>{formattedDate}</Table.Cell>

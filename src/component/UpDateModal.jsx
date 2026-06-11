@@ -16,19 +16,17 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { toast } from "react-hot-toast";
 
-export function UpDateModal({myData}) {
-  console.log(myData)
-
+export function UpDateModal({ myData }) {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-
     const updateData = Object.fromEntries(formData.entries());
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/tutor/dataUp/${tutor._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/tutor/dataUp/${myData._id}`,
       {
         method: "PATCH",
         headers: {
@@ -42,11 +40,19 @@ export function UpDateModal({myData}) {
 
     if (data.modifiedCount > 0) {
       toast.success("Tutor Updated Successfully");
+      window.location.reload();
     } else {
       toast.error("No changes were made");
     }
   };
 
+  const formattedStartDate = myData?.session_start_date
+    ? new Date(myData.session_start_date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+    : "";
 
   return (
     <Modal>
@@ -56,257 +62,136 @@ export function UpDateModal({myData}) {
 
       <Modal.Backdrop>
         <Modal.Container placement="center">
-          <Modal.Dialog
-            className="
-              w-[95vw]
-              max-w-4xl
-              max-h-[90vh]
-              overflow-hidden
-              rounded-xl
-              mx-2
-            "
-          >
+          <Modal.Dialog className="w-[95vw] max-w-4xl max-h-[90vh] overflow-hidden rounded-xl mx-2">
             <Modal.CloseTrigger />
 
             <Modal.Header className="px-4 pt-5">
-              <Modal.Heading
-                className="
-                  text-center
-                  text-xl
-                  sm:text-2xl
-                  md:text-3xl
-                  font-bold
-                "
-              >
-                Book Session
+              <Modal.Heading className="text-center text-xl sm:text-2xl md:text-3xl font-bold">
+                Update Tutor
               </Modal.Heading>
-
               <p className="mt-2 text-sm sm:text-base text-center text-muted">
-                Make changes to your profile here. Click save when you are
-                done.
+                Make changes to your tutor info and click update.
               </p>
             </Modal.Header>
 
-            <Modal.Body
-              className="
-                overflow-y-auto
-                max-h-[75vh]
-                p-3
-                sm:p-6
-              "
-            >
+            <Modal.Body className="overflow-y-auto max-h-[75vh] p-3 sm:p-6">
               <Form
-                className="
-                  w-full
-                  mx-auto
-                  bg-white
-                  dark:bg-black/10
-                  rounded-xl
-                  p-2
-                  sm:p-4
-                "
+                onSubmit={handleUpdate}
+                className="w-full mx-auto rounded-xl p-2 sm:p-4"
               >
                 <Fieldset>
                   <FieldGroup className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    {/* Tutor Name */}
-                    <TextField isRequired name="name" type="text">
+                    <TextField name="name" defaultValue={myData?.name}>
                       <Label>Tutor Name</Label>
-                      <Input placeholder="Tutor Name" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Photo URL */}
-                    <TextField isRequired name="image" type="url">
-                      <Label>Photo URL</Label>
-                      <Input placeholder="https://example.com/photo.jpg" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Subject */}
-                    <Select
-                      name="category"
-                      className="w-full"
-                      placeholder="Select Subject"
-                    >
-                      <Label>Subject</Label>
-
-                      <Select.Trigger>
-                        <Select.Value />
-                        <Select.Indicator />
-                      </Select.Trigger>
-
-                      <Select.Popover>
-                        <ListBox>
-                          <ListBox.Item id="Bangla">
-                            Bangla
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="English">
-                            English
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Biology">
-                            Biology
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Chemistry">
-                            Chemistry
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Physics">
-                            Physics
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Mathematics">
-                            Mathematics
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-                        </ListBox>
-                      </Select.Popover>
-                    </Select>
-
-                    {/* Available Time */}
-                    <TextField isRequired name="time_slot">
-                      <Label>Available Days & Time</Label>
-                      <Input placeholder="Sun-Thu 5:00 PM - 8:00 PM" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Hourly Fee */}
-                    <TextField isRequired name="hourly_rate" type="number">
-                      <Label>Hourly Fee</Label>
-                      <Input placeholder="1000" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Total Slot */}
-                    <TextField isRequired name="remaining_slot" type="number">
-                      <Label>Total Slot</Label>
-                      <Input placeholder="50" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Start Date */}
-                    <TextField
-                      isRequired
-                      name="session_start_date"
-                      type="date"
-                    >
-                      <Label>Session Start Date</Label>
                       <Input />
                       <FieldError />
                     </TextField>
 
-                    {/* Institution */}
-                    <TextField isRequired name="institution">
-                      <Label>Institution</Label>
-                      <Input placeholder="Dhaka University" />
+                    <TextField name="image" defaultValue={myData?.image}>
+                      <Label>Photo URL</Label>
+                      <Input />
                       <FieldError />
                     </TextField>
 
-                    {/* Location */}
-                    <TextField isRequired name="location">
-                      <Label>Location (Area/City)</Label>
-                      <Input placeholder="Dhaka" />
-                      <FieldError />
-                    </TextField>
-
-                    {/* Teaching Mode */}
                     <Select
-                      name="mode"
+                      name="category"
                       className="w-full"
-                      placeholder="Select Mode"
+                      placeholder="Select Subject"
+                      isRequired
                     >
-                      <Label>Teaching Mode</Label>
-
+                      <Label>
+                        Subject{" "}
+                        <span className="text-cyan-500 font-normal">
+                          (Currently: {myData?.category})
+                        </span>
+                      </Label>
                       <Select.Trigger>
                         <Select.Value />
                         <Select.Indicator />
                       </Select.Trigger>
-
                       <Select.Popover>
                         <ListBox>
-                          <ListBox.Item id="Online">
-                            Online
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Offline">
-                            Offline
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
-
-                          <ListBox.Item id="Both">
-                            Both
-                            <ListBox.ItemIndicator />
-                          </ListBox.Item>
+                          <ListBox.Item id="Bangla">Bangla</ListBox.Item>
+                          <ListBox.Item id="English">English</ListBox.Item>
+                          <ListBox.Item id="Biology">Biology</ListBox.Item>
+                          <ListBox.Item id="Chemistry">Chemistry</ListBox.Item>
+                          <ListBox.Item id="Physics">Physics</ListBox.Item>
+                          <ListBox.Item id="Mathematics">Mathematics</ListBox.Item>
                         </ListBox>
                       </Select.Popover>
                     </Select>
 
-                    {/* Experience */}
+                    <TextField name="time_slot" defaultValue={myData?.time_slot}>
+                      <Label>Available Time</Label>
+                      <Input />
+                    </TextField>
+
+                    <TextField name="hourly_rate" defaultValue={String(myData?.hourly_rate ?? "")}>
+                      <Label>Hourly Fee</Label>
+                      <Input type="number" />
+                    </TextField>
+
+                    <TextField name="remaining_slot" defaultValue={String(myData?.remaining_slot ?? "")}>
+                      <Label>Total Slot</Label>
+                      <Input type="number" />
+                    </TextField>
+
+                    <TextField name="session_start_date" defaultValue={myData?.session_start_date}>
+                      <Label>Start Date <span className="text-cyan-500 font-normal">(Currently: {formattedStartDate})</span></Label>
+                      <Input type="date" />
+                    </TextField>
+
+                    <TextField name="institution" defaultValue={myData?.institution}>
+                      <Label>Institution</Label>
+                      <Input />
+                    </TextField>
+
+                    <TextField name="location" defaultValue={myData?.location}>
+                      <Label>Location</Label>
+                      <Input />
+                    </TextField>
+
+                    <Select
+                      name="mode"
+                      className="w-full"
+                      placeholder="Select Mode"
+                      isRequired
+                    >
+                      <Label>
+                        Teaching Mode{" "}
+                        <span className="text-cyan-500 font-normal">
+                          (Currently: {myData?.mode})
+                        </span>
+                      </Label>
+                      <Select.Trigger>
+                        <Select.Value />
+                        <Select.Indicator />
+                      </Select.Trigger>
+                      <Select.Popover>
+                        <ListBox>
+                          <ListBox.Item id="Online">Online</ListBox.Item>
+                          <ListBox.Item id="Offline">Offline</ListBox.Item>
+                          <ListBox.Item id="Both">Both</ListBox.Item>
+                        </ListBox>
+                      </Select.Popover>
+                    </Select>
+
                     <div className="md:col-span-2">
-                      <TextField
-                        isRequired
-                        name="experience"
-                        validate={(value) => {
-                          if (value.length < 10) {
-                            return "Experience must be at least 10 characters";
-                          }
-                          return null;
-                        }}
-                      >
+                      <TextField name="experience" defaultValue={myData?.experience}>
                         <Label>Experience</Label>
-
-                        <TextArea
-                          className="
-                            w-full
-                            min-h-32
-                            resize-none
-                            rounded-lg
-                            p-3
-                          "
-                          placeholder="Describe your teaching experience..."
-                        />
-
-                        <Description>
-                          Minimum 10 characters
-                        </Description>
-
+                        <TextArea className="w-full min-h-32 resize-none rounded-lg p-3" />
+                        <Description>Minimum 10 characters</Description>
                         <FieldError />
                       </TextField>
                     </div>
                   </FieldGroup>
 
-                  <Fieldset.Actions
-                    className="
-                      flex
-                      flex-col
-                      sm:flex-row
-                      gap-3
-                      mt-8
-                      sm:justify-end
-                    "
-                  >
-                    <Button
-                      slot="close"
-                      variant="outline"
-                      className="w-full sm:w-auto"
-                      onClick={handleUpdate}
-                    >
+                  <Fieldset.Actions className="flex gap-3 mt-8 justify-end">
+                    <Button slot="close" variant="outline">
                       Cancel
                     </Button>
-
-                    <Button
-                      slot="close"
-                      className="w-full sm:w-auto bg-cyan-500 text-white"
-                    >
-                      Confirm Booking
+                    <Button type="submit" className="bg-cyan-500 text-white">
+                      Update Tutor
                     </Button>
                   </Fieldset.Actions>
                 </Fieldset>
