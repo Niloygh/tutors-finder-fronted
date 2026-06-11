@@ -1,11 +1,19 @@
 "use client";
 
-import { Check, Power } from "@gravity-ui/icons";
+import { useEffect, useState } from "react";
+import { Moon,  Sun } from "@gravity-ui/icons";
 import { Switch } from "@heroui/react";
 import { useTheme } from "next-themes";
 
 export function ThemeSwitch() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <Switch
@@ -27,9 +35,9 @@ export function ThemeSwitch() {
           >
             <Switch.Icon>
               {isSelected ? (
-                <Check className="size-4 text-cyan-600" />
+                <Moon className="size-4 text-cyan-600" />
               ) : (
-                <Power className="size-4 text-blue-600" />
+                <Sun className="size-4 text-blue-600" />
               )}
             </Switch.Icon>
           </Switch.Thumb>
